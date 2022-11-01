@@ -32,16 +32,17 @@ AddressBook.prototype.deleteContact = function (id) {
 
 // Business Logic for Contacts ---------------------------
 function Address(emailAddress, homeAddress) {
-  let address = new Address(emailAddress, homeAddress);
   this.emailAddress = emailAddress;
   this.homeAddress = homeAddress;
-  return address;
 }
 
-function Contact(firstName, lastName, phoneNumber, address) {
+function Contact(firstName, lastName, phoneNumber, emailAddress, homeAddress) {
+  let address = new Address(emailAddress, homeAddress);
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
+  this.emailAddress = emailAddress;
+  this.homeAddress = homeAddress;
   this.address = address;
 }
 
@@ -54,7 +55,7 @@ Contact.prototype.fullName = function () {
 };
 
 Contact.prototype.fullContact = function () {
-  return this.firstName + " " + this.lastName + " " + this.phoneNumber + " " + this.address;
+  return this.firstName + " " + this.lastName + " " + this.phoneNumber + " " + this.emailAddress +" " + this.homeAddress;
 }
 
 //UI Logic-------------------------------------------------------
@@ -76,6 +77,7 @@ function listContacts(addressBookToDisplay) {
 
 function displayContactDetails(event) {
   const contact = addressBook.findContact(event.target.id);
+  console.log(event.target);
   document.querySelector(".first-name").innerText = contact.firstName;
   document.querySelector(".last-name").innerText = contact.lastName;
   document.querySelector(".phone-number").innerText = contact.phoneNumber;
